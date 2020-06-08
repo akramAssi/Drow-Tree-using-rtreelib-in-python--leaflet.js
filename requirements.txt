@@ -1,0 +1,11 @@
+This program test in Mac OS
+Python3
+Must install library
+numpy
+Pandas
+matplotlib
+tqdm
+Pydot
+graphviz
+And install program 
+graphviz
