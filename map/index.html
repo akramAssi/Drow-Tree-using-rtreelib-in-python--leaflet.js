@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        
+        #info {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: rgb(251, 246, 255);
+            border: 1px solid rgb(26, 43, 75);
+            border-radius: 5px;
+            z-index: 1000;
+            width: 120px;
+            padding: 4px;
+            padding-left: 10px;
+            /* padding-left: 10px; */
+        }
+        
+        .title {
+            margin: 5px;
+            margin-left: 1px;
+            margin-bottom: 7px;
+        }
+        
+        .color {
+            position: relative;
+            margin: 5px 25px;
+            /* width: 50px; */
+            float: left;
+            /* display: inline; */
+        }
+        
+        .color::after {
+            /* margin-left: 20px; */
+            /* display: inline; */
+            content: " ";
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            left: -20px;
+            background-color: aquamarine;
+            z-index: 1100;
+        }
+        
+        .a::after {
+            background-color: #3CBC00;
+        }
+        
+        .b::after {
+            background-color: rgb(53, 121, 177);
+        }
+        
+        .c::after {
+            background-color: #601534;
+        }
+        
+        .d::after {
+            background-color: #BC3800;
+        }
+        
+        .e::after {
+            background-color: #147A43;
+        }
+        
+        .f::after {
+            background-color: #BCB400;
+        }
+        
+        .g::after {
+            background-color: #3B413E;
+        }
+        
+        .h::after {
+            background-color: #04120A;
+        }
+    </style>
+    <title></title>
+</head>
+
+<body>
+    <div id="map">
+    </div>
+    <div id="info">
+        <div class="title">parent node id :</div>
+        <div class="color a">1</div>
+        <div class="color b">2</div>
+        <div class="color c">3</div>
+        <div class="color d">4</div>
+        <div class="color e">5</div>
+        <div class="color f">6</div>
+        <div class="color g">7</div>
+        <div class="color h">8</div>
+    </div>
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="data/map_rec_1.js"></script>
+    <script src="data/rtree_entry_2.js"></script>
+    <script>
+        var map = L.map('map', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).fitBounds([
+            [32.226642039690155, 35.21861904861377],
+            [32.22903885662383, 35.22384095555966]
+        ]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var bounds_group = new L.featureGroup([]);
+
+        function setBounds() {}
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+
+        function pop_map_rec_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? Autolinker.link(feature.properties['name'].toLocaleString(), {
+                truncate: {
+                    length: 30,
+                    location: 'smart'
+                }
+            }) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {
+                maxHeight: 400
+            });
+        }
+
+        function style_map_rec_1_0() {
+            return {
+                pane: 'pane_map_rec_1',
+                opacity: 1,
+                color: 'rgba(114,155,111,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_map_rec_1');
+        map.getPane('pane_map_rec_1').style.zIndex = 401;
+        map.getPane('pane_map_rec_1').style['mix-blend-mode'] = 'normal';
+        var layer_map_rec_1 = new L.geoJson(json_map_rec_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_map_rec_1',
+            layerName: 'layer_map_rec_1',
+            pane: 'pane_map_rec_1',
+            onEachFeature: pop_map_rec_1,
+            style: style_map_rec_1_0,
+        });
+        bounds_group.addLayer(layer_map_rec_1);
+        map.addLayer(layer_map_rec_1);
+
+        function pop_rtree_entry_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">id</th>\
+                        <td>' + (feature.properties['id'] !== null ? Autolinker.link(feature.properties['id'].toLocaleString(), {
+                truncate: {
+                    length: 30,
+                    location: 'smart'
+                }
+            }) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['obj_id'] !== null ? Autolinker.link(feature.properties['obj_id'].toLocaleString(), {
+                truncate: {
+                    length: 30,
+                    location: 'smart'
+                }
+            }) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hex_id'] !== null ? Autolinker.link(feature.properties['hex_id'].toLocaleString(), {
+                truncate: {
+                    length: 30,
+                    location: 'smart'
+                }
+            }) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>parent_node_id</strong><br />' + (feature.properties['parent_node_id'] !== null ? Autolinker.link(feature.properties['parent_node_id'].toLocaleString(), {
+                truncate: {
+                    length: 30,
+                    location: 'smart'
+                }
+            }) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>leaf</strong><br />' + (feature.properties['leaf'] !== null ? Autolinker.link(feature.properties['leaf'].toLocaleString(), {
+                truncate: {
+                    length: 30,
+                    location: 'smart'
+                }
+            }) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>data</strong><br />' + (feature.properties['data'] !== null ? Autolinker.link(feature.properties['data'].toLocaleString(), {
+                truncate: {
+                    length: 30,
+                    location: 'smart'
+                }
+            }) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {
+                maxHeight: 400
+            });
+        }
+
+        function style_rtree_entry_2_0() {
+            return {
+                pane: 'pane_rtree_entry_2',
+                opacity: 1,
+                color: 'rgba(53,121,177,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+
+        function restylemap(feature, hazard) {
+            if (feature.properties.parent_node_id == 1.0) {
+                return {
+                    pane: 'pane_rtree_entry_2',
+                    opacity: 1,
+                    color: '#3CBC00',
+                    dashArray: '',
+                    lineCap: 'square',
+                    lineJoin: 'bevel',
+                    weight: 12.0,
+                    fillOpacity: 0,
+                    interactive: true,
+                };
+            }
+            if (feature.properties.parent_node_id == 2.0) {
+                return {
+                    pane: 'pane_rtree_entry_2',
+                    opacity: 1,
+                    color: 'rgba(53,121,177,1.0)',
+                    dashArray: '',
+                    lineCap: 'square',
+                    lineJoin: 'bevel',
+                    weight: 7.0,
+                    fillOpacity: 0,
+                    interactive: true,
+                };
+            }
+            if (feature.properties.parent_node_id == 3.0) {
+                return {
+                    pane: 'pane_rtree_entry_2',
+                    opacity: 1,
+                    color: '#601534',
+                    dashArray: '',
+                    lineCap: 'square',
+                    lineJoin: 'bevel',
+                    weight: 7.0,
+                    fillOpacity: 0,
+                    interactive: true,
+                };
+            }
+            if (feature.properties.parent_node_id == 4.0) {
+                return {
+                    pane: 'pane_rtree_entry_2',
+                    opacity: 1,
+                    color: '#BC3800',
+                    dashArray: '',
+                    lineCap: 'square',
+                    lineJoin: 'bevel',
+                    weight: 3.0,
+                    fillOpacity: 0,
+                    interactive: true,
+                };
+            }
+            if (feature.properties.parent_node_id == 5.0) {
+                return {
+                    pane: 'pane_rtree_entry_2',
+                    opacity: 1,
+                    color: '#147A43',
+                    dashArray: '',
+                    lineCap: 'square',
+                    lineJoin: 'bevel',
+                    weight: 3.0,
+                    fillOpacity: 0,
+                    interactive: true,
+                };
+            }
+            if (feature.properties.parent_node_id == 6.0) {
+                return {
+                    pane: 'pane_rtree_entry_2',
+                    opacity: 1,
+                    color: '#BCB400',
+                    dashArray: '',
+                    lineCap: 'square',
+                    lineJoin: 'bevel',
+                    weight: 3.0,
+                    fillOpacity: 0,
+                    interactive: true,
+                };
+            }
+            if (feature.properties.parent_node_id == 7.0) {
+                return {
+                    pane: 'pane_rtree_entry_2',
+                    opacity: 1,
+                    color: '#3B413E',
+                    dashArray: '',
+                    lineCap: 'square',
+                    lineJoin: 'bevel',
+                    weight: 3.0,
+                    fillOpacity: 0,
+                    interactive: true,
+                };
+            }
+            if (feature.properties.parent_node_id == 8.0) {
+                return {
+                    pane: 'pane_rtree_entry_2',
+                    opacity: 1,
+                    color: '#04120A',
+                    dashArray: '',
+                    lineCap: 'square',
+                    lineJoin: 'bevel',
+                    weight: 3.0,
+                    fillOpacity: 0,
+                    interactive: true,
+                };
+            }
+
+        }
+        map.createPane('pane_rtree_entry_2');
+        map.getPane('pane_rtree_entry_2').style.zIndex = 402;
+        map.getPane('pane_rtree_entry_2').style['mix-blend-mode'] = 'normal';
+        var layer_rtree_entry_2 = new L.geoJson(json_rtree_entry_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_rtree_entry_2',
+            layerName: 'layer_rtree_entry_2',
+            pane: 'pane_rtree_entry_2',
+            onEachFeature: pop_rtree_entry_2,
+            style: restylemap,
+        });
+
+        bounds_group.addLayer(layer_rtree_entry_2);
+        map.addLayer(layer_rtree_entry_2);
+        setBounds();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url("Lovely Boys Font by 7NTypes_D.otf");
+        }
+        
+        body {
+            background-image: url("back.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        /* Style the tab */
+        
+        header {
+            width: 100%;
+            /* height: 18vh; */
+            font-size: 18vh;
+            text-align: center;
+            padding: 1vh;
+            font-family: myFirstFont;
+            color: #fff;
+            -webkit-text-stroke: 0.5px black;
+            text-shadow: 2px 2px 5px black;
+        }
+        
+        .tab {
+            overflow: hidden;
+            position: sticky;
+            position: -webkit-sticky;
+            /* Safari */
+            top: -1px;
+            padding-top: 5px;
+            /* font-size: 17px; */
+            background-color: transparent;
+        }
+        /* Style the buttons inside the tab */
+        
+        .tab button {
+            background-color: #E2B70D;
+            border-radius: 25px;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            margin-left: 15px;
+        }
+        /* Change background color of buttons on hover */
+        
+        .tab button:hover {
+            background-color: #F2483C;
+        }
+        /* Create an active/current tablink class */
+        
+        .tab button.active {
+            background-color: #F2483C;
+            /* text-decoration: underli ne; */
+        }
+        /* Style the tab content */
+        
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            /* border: 1px solid #ccc; */
+            border-top: none;
+        }
+        
+        .tab.isSticky {
+            /* background-image: url("back1.jpg");
+            background-repeat: no-repeat; */
+            background-color: rgba(95, 196, 227, 0.6);
+            padding: 4px;
+            font-size: 10px;
+        }
+        
+        iframe {
+            border-width: 0.1px;
+            border-radius: 10px;
+            /* background-color: #fff; */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        .left {
+            float: right;
+            font-size: 20px;
+        }
+        
+        .left,
+        .right {
+            font-family: Helvetica;
+            color: #fff;
+            -webkit-text-stroke: 0.5px black;
+            text-shadow: 2px 2px 5px black;
+        }
+        
+        .right {
+            float: left;
+            font-size: 20px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <header class=".sd">R-Tree</header>
+    <div class="tab" id="ttt">
+        <button class="tablinks" id="aa" onclick="openCity(event, 'University')">visualization of An-Najah University</button>
+        <button class="tablinks" onclick="openCity(event, 'Test')" style="width: 254px;">Real Time R-tree</button>
+    </div>
+
+    <div id="University" class="tabcontent">
+        <!-- <h3>University Detection</h3> -->
+        <iframe src="map/index.html#18/32.22794/35.22239" width="100%" height="650px" style="overflow: hidden;"></iframe>
+    </div>
+
+    <div id="Test" class="tabcontent">
+        <iframe src="RTree-master\examples\simple_test.html" width="100%" height="650px" style="overflow: hidden;"></iframe>
+    </div>
+    <!-- <div style="margin-left: 35%;margin-top:5%;">
+        <p style="font-size: 30px;margin-top: -12px;"> The supervision of Professor:</p>
+        <p style="font-size: 25px;margin-left:10%;">Hussam Abd AlHalim</p>​
+        <p style="font-size: 30px;margin-top: -12px;"> Student work:</p>
+        <p style="font-size: 25px;margin-left:10%;">
+            Akram Assi,Hamza Shakshir.</p>
+    </div> -->
+    <div>
+        <div class="right">
+            <div>course name : advanced database</div>
+            <div> The supervision of Professor : Hussam Abd AlHalim</div>
+        </div>
+        <div class="left">
+            <div>Akram Assi</div>
+            <div>Hamza Shakshir</div>
+
+        </div>
+    </div>
+    <script>
+        document.getElementById("aa").click();
+
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+    <script>
+        const stickyElm = document.querySelector('.tab')
+
+        const observer = new IntersectionObserver(
+            ([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1), {
+                threshold: [1]
+            }
+        );
+
+        observer.observe(stickyElm)
+    </script>
+</body>
+
+</html>
